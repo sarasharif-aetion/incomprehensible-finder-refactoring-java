@@ -1,6 +1,7 @@
 package algorithm;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Finder {
 	private final List<Person> people;
@@ -9,7 +10,7 @@ public class Finder {
 		people = p;
 	}
 
-	public FinderResult Find(FinderParameter finderParameter) {
+	public Optional<FinderResult> Find(FinderParameter finderParameter) {
 		List<FinderResult> results = new ArrayList<FinderResult>();
 
 		for (int i = 0; i < people.size() - 1; i++) {
@@ -23,7 +24,7 @@ public class Finder {
 		}
 
 		if (results.size() < 1) {
-			return new FinderResult();
+			return Optional.empty();
 		}
 
 		FinderResult answer = results.get(0);
@@ -43,6 +44,6 @@ public class Finder {
 			}
 		}
 
-		return answer;
+		return Optional.of(answer);
 	}
 }
