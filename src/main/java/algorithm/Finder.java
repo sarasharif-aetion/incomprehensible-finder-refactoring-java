@@ -11,15 +11,10 @@ public class Finder {
 	}
 
 	public Optional<FinderResult> Find(FinderParameter finderParameter) {
-		List<FinderResult> results = new ArrayList<FinderResult>();
-
+		List<FinderResult> results = new ArrayList<>();
 		for (int i = 0; i < people.size() - 1; i++) {
 			for (int j = i + 1; j < people.size(); j++) {
-				if (people.get(i).birthDate.getTime() < people.get(j).birthDate.getTime()) {
-					results.add(new FinderResult(people.get(i), people.get(j)));
-				} else {
-					results.add(new FinderResult(people.get(j), people.get(i)));
-				}
+				results.add(new FinderResult(people.get(i), people.get(j)));
 			}
 		}
 
@@ -31,13 +26,13 @@ public class Finder {
 		for (FinderResult result : results) {
 			switch (finderParameter) {
 				case One :
-					if (result.D < answer.D) {
+					if (result.D() < answer.D()) {
 						answer = result;
 					}
 					break;
 
 				case Two :
-					if (result.D > answer.D) {
+					if (result.D() > answer.D()) {
 						answer = result;
 					}
 					break;

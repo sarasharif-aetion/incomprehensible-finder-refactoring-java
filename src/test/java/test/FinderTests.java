@@ -63,8 +63,8 @@ public class FinderTests {
 
 		Optional<FinderResult> result = finder.Find(FinderParameter.One);
 
-		assertEquals(sue, result.get().P1);
-		assertEquals(greg, result.get().P2);
+		assertEquals(sue, result.get().P1());
+		assertEquals(greg, result.get().P2());
 	}
 
 	@Test
@@ -77,8 +77,8 @@ public class FinderTests {
 
 		Optional<FinderResult> result = finder.Find(FinderParameter.Two);
 
-		assertEquals(greg, result.get().P1);
-		assertEquals(mike, result.get().P2);
+		assertEquals(greg, result.get().P1());
+		assertEquals(mike, result.get().P2());
 	}
 
 	@Test
@@ -92,8 +92,8 @@ public class FinderTests {
 
 		Optional<FinderResult> result = finder.Find(FinderParameter.Two);
 
-		assertEquals(sue, result.get().P1);
-		assertEquals(sarah, result.get().P2);
+		assertEquals(sue, result.get().P1());
+		assertEquals(sarah, result.get().P2());
 	}
 
 	@Test
@@ -108,8 +108,8 @@ public class FinderTests {
 
 		Optional<FinderResult> result = finder.Find(FinderParameter.One);
 
-		assertEquals(sue, result.get().P1);
-		assertEquals(greg, result.get().P2);
+		assertEquals(sue, result.get().P1());
+		assertEquals(greg, result.get().P2());
 	}
 
 }
