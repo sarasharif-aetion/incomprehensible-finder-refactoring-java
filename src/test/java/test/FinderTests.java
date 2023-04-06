@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import algorithm.FinderResult;
+import algorithm.Pair;
 import algorithm.FinderParameter;
 import algorithm.Finder;
 import algorithm.Person;
@@ -38,9 +37,9 @@ public class FinderTests {
 	@Test
 	public void Returns_Empty_Results_When_Given_Empty_List() {
 		List<Person> list = new ArrayList<Person>();
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.One);
+		Optional<Pair> result = finder.find(list, FinderParameter.One);
 		assertTrue(result.isEmpty());
 	}
 
@@ -49,9 +48,9 @@ public class FinderTests {
 		List<Person> list = new ArrayList<Person>();
 		list.add(sue);
 
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.One);
+		Optional<Pair> result = finder.find(list, FinderParameter.One);
 		assertTrue(result.isEmpty());
 	}
 
@@ -60,12 +59,18 @@ public class FinderTests {
 		List<Person> list = new ArrayList<Person>();
 		list.add(sue);
 		list.add(greg);
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.One);
+		Optional<Pair> result = finder.find(list, FinderParameter.One);
 
-		assertEquals(sue, result.get().P1());
-		assertEquals(greg, result.get().P2());
+		assertTwoPeople(result, greg, sue);
+	}
+
+	private void assertTwoPeople(Optional<Pair> result, Person greg, Person sue) {
+		List<Person> people = List.of(result.get().P1(), result.get().P2());
+		assertEquals(2, people.size());
+		assertTrue(people.contains(greg));
+		assertTrue(people.contains(sue));
 	}
 
 	@Test
@@ -74,12 +79,11 @@ public class FinderTests {
 		list.add(mike);
 		list.add(greg);
 
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.Two);
-	//	Assert.assertTrue(new Person[]{result.get().P1(), result.get().P2()}.contains(mike));
-		// people = (p1, p2);
-		// assertTrue(people.size == 2 && people.contains(mike) && people.contains(greg));
+		Optional<Pair> result = finder.find(list, FinderParameter.Two);
+
+		assertTwoPeople(result, greg, mike);
 	}
 
 	@Test
@@ -89,12 +93,11 @@ public class FinderTests {
 		list.add(sarah);
 		list.add(mike);
 		list.add(greg);
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.Two);
+		Optional<Pair> result = finder.find(list, FinderParameter.Two);
 
-		assertEquals(sue, result.get().P1());
-		assertEquals(sarah, result.get().P2());
+		assertTwoPeople(result, sue, sarah);
 	}
 
 	@Test
@@ -105,12 +108,11 @@ public class FinderTests {
 		list.add(mike);
 		list.add(greg);
 
-		Finder finder = new Finder(list);
+		Finder finder = new Finder();
 
-		Optional<FinderResult> result = finder.Find(FinderParameter.One);
+		Optional<Pair> result = finder.find(list, FinderParameter.One);
 
-		assertEquals(sue, result.get().P1());
-		assertEquals(greg, result.get().P2());
+		assertTwoPeople(result, sue, greg);
 	}
 
 }

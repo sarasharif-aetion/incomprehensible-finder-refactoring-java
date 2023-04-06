@@ -4,26 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class Finder {
-	private final List<Person> people;
-
-	public Finder(List<Person> p) {
-		people = p;
-	}
-
-	public Optional<FinderResult> Find(FinderParameter finderParameter) {
-		List<FinderResult> results = new ArrayList<>();
-		for (int i = 0; i < people.size() - 1; i++) {
-			for (int j = i + 1; j < people.size(); j++) {
-				results.add(new FinderResult(people.get(i), people.get(j)));
-			}
-		}
-
-		if (results.size() < 1) {
+	public Optional<Pair> find(List<Person> people, FinderParameter finderParameter) {
+		if (people.size() <= 1) {
 			return Optional.empty();
 		}
 
-		FinderResult answer = results.get(0);
-		for (FinderResult result : results) {
+		List<Pair> pairs = buildPairs(people);
+
+
+		Pair answer = pairs.get(0);
+		for (Pair result : pairs) {
 			switch (finderParameter) {
 				case One :
 					if (result.D() < answer.D()) {
@@ -40,5 +30,15 @@ public class Finder {
 		}
 
 		return Optional.of(answer);
+	}
+
+	private List<Pair> buildPairs(List<Person> people) {
+		List<Pair> pairs = new ArrayList<>();
+		for (int i = 0; i < people.size() - 1; i++) {
+			for (int j = i + 1; j < people.size(); j++) {
+				pairs.add(new Pair(people.get(i), people.get(j)));
+			}
+		}
+		return pairs;
 	}
 }
