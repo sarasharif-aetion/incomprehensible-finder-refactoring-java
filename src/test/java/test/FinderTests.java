@@ -34,6 +34,13 @@ public class FinderTests {
 		mike.birthDate = new Date(79, 0, 1);
 	}
 
+	private void assertPairContains(Optional<Pair> pair, Person firstPerson, Person secondPerson) {
+		List<Person> people = List.of(pair.get().P1(), pair.get().P2());
+		assertEquals(2, people.size());
+		assertTrue(people.contains(firstPerson));
+		assertTrue(people.contains(secondPerson));
+	}
+
 	@Test
 	public void Returns_Empty_Results_When_Given_Empty_List() {
 		List<Person> list = new ArrayList<Person>();
@@ -63,15 +70,9 @@ public class FinderTests {
 
 		Optional<Pair> result = finder.find(list, FinderParameter.One);
 
-		assertTwoPeople(result, greg, sue);
+		assertPairContains(result, greg, sue);
 	}
 
-	private void assertTwoPeople(Optional<Pair> result, Person greg, Person sue) {
-		List<Person> people = List.of(result.get().P1(), result.get().P2());
-		assertEquals(2, people.size());
-		assertTrue(people.contains(greg));
-		assertTrue(people.contains(sue));
-	}
 
 	@Test
 	public void Returns_Furthest_Two_For_Two_People() {
@@ -83,7 +84,7 @@ public class FinderTests {
 
 		Optional<Pair> result = finder.find(list, FinderParameter.Two);
 
-		assertTwoPeople(result, greg, mike);
+		assertPairContains(result, greg, mike);
 	}
 
 	@Test
@@ -97,7 +98,7 @@ public class FinderTests {
 
 		Optional<Pair> result = finder.find(list, FinderParameter.Two);
 
-		assertTwoPeople(result, sue, sarah);
+		assertPairContains(result, sue, sarah);
 	}
 
 	@Test
@@ -112,7 +113,7 @@ public class FinderTests {
 
 		Optional<Pair> result = finder.find(list, FinderParameter.One);
 
-		assertTwoPeople(result, sue, greg);
+		assertPairContains(result, sue, greg);
 	}
 
 }
