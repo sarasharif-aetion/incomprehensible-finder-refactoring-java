@@ -1,26 +1,28 @@
 package algorithm;
 public class Pair {
-	private Person P1;
 
-	private Person P2;
+	private Person person1;
 
-	public long D;
-	public Pair(Person p1, Person p2) {
-		P1 = p1;
-		P2 = p2;
-		D = Math.abs(P2.birthDate.getTime() - P1.birthDate.getTime());
+	private Person person2;
+
+	public long distance;
+
+	public Pair(Person person1, Person person2) {
+		this.person1 = person1;
+		this.person2 = person2;
+		distance = Math.abs(this.person2.birthDate.getTime() - this.person1.birthDate.getTime());
 	}
 
-	public Person P1() {
-		return P1;
+	public Person person1() {
+		return person1;
 	}
 
-	public Person P2() {
-		return P2;
+	public Person person2() {
+		return person2;
 	}
 
-	public long D() {
-		return D;
+	public long distance() {
+		return distance;
 	}
 
 }

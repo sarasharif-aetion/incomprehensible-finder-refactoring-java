@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.Pair;
-import algorithm.FinderParameter;
+import algorithm.DistanceCriteria;
 import algorithm.Finder;
 import algorithm.Person;
 
@@ -34,19 +34,12 @@ public class FinderTests {
 		mike.birthDate = new Date(79, 0, 1);
 	}
 
-	private void assertPairContains(Optional<Pair> pair, Person firstPerson, Person secondPerson) {
-		List<Person> people = List.of(pair.get().P1(), pair.get().P2());
-		assertEquals(2, people.size());
-		assertTrue(people.contains(firstPerson));
-		assertTrue(people.contains(secondPerson));
-	}
-
 	@Test
 	public void Returns_Empty_Results_When_Given_Empty_List() {
 		List<Person> list = new ArrayList<Person>();
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.One);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Closest);
 		assertTrue(result.isEmpty());
 	}
 
@@ -57,7 +50,7 @@ public class FinderTests {
 
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.One);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Closest);
 		assertTrue(result.isEmpty());
 	}
 
@@ -68,7 +61,7 @@ public class FinderTests {
 		list.add(greg);
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.One);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Closest);
 
 		assertPairContains(result, greg, sue);
 	}
@@ -82,7 +75,7 @@ public class FinderTests {
 
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.Two);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Furthest);
 
 		assertPairContains(result, greg, mike);
 	}
@@ -96,7 +89,7 @@ public class FinderTests {
 		list.add(greg);
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.Two);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Furthest);
 
 		assertPairContains(result, sue, sarah);
 	}
@@ -111,9 +104,16 @@ public class FinderTests {
 
 		Finder finder = new Finder();
 
-		Optional<Pair> result = finder.find(list, FinderParameter.One);
+		Optional<Pair> result = finder.find(list, DistanceCriteria.Closest);
 
 		assertPairContains(result, sue, greg);
+	}
+
+	private void assertPairContains(Optional<Pair> pair, Person firstPerson, Person secondPerson) {
+		List<Person> people = List.of(pair.get().person1(), pair.get().person2());
+		assertEquals(2, people.size());
+		assertTrue(people.contains(firstPerson));
+		assertTrue(people.contains(secondPerson));
 	}
 
 }
